@@ -21,6 +21,10 @@ app.get('/webview/crazy-parking-lot', (req, res) => {
     
 });
 
+app.get('/phaser-sample', (req, res) => {
+    res.sendFile(path.join(__dirname, './view/phaserSample.html'));
+})
+
 app.listen(port, () => {
     console.log('web view server run on port : ' + port);
 });
