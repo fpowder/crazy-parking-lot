@@ -4,6 +4,7 @@ const app = express();
 const port = 3000;
 
 const path = require('path');
+const fs = require('fs');
 
 app.use(cookieParser());
 app.use('/lib', express.static(path.join(__dirname, 'lib')));
@@ -18,12 +19,22 @@ app.get('/webview/crazy-parking-lot', (req, res) => {
     //res.clearCookie('webView');
     //res.cookie('webView', req.cookies);
     res.sendFile(path.join(__dirname, './view/crazyParkingLot.html'));
-    
 });
 
 app.get('/phaser-sample', (req, res) => {
     res.sendFile(path.join(__dirname, './view/phaserSample.html'));
-})
+});
+
+// image download
+app.get(/^\/assets/, (req, res) => {
+    fs.readFile(__dirname + req.originalUrl, (err, data) => {
+        res.writeHead(200, {
+            'Content-Type': 'image/png',
+            'Content-Length': data.length
+        });
+        res.end(data);
+    });
+});
 
 app.listen(port, () => {
     console.log('web view server run on port : ' + port);

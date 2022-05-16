@@ -60,6 +60,8 @@ let config = {
     type: Phaser.AUTO,
     width: phrWidth,
     height: phrHeight,
+    pixelArt: true,
+    backgroundColor: '#1a1a2d',
     canvasStyle: `left: ${cnvAdjWidth}px; top: ${cnvAdjHeight}px; position: fixed;`,
     physics: {
         default: 'arcade',
@@ -75,32 +77,37 @@ let config = {
 
 let game = new Phaser.Game(config);
 
-function preload ()
-{
-    this.load.setBaseURL('http://labs.phaser.io');
+function preload () {
+    this.load.setBaseURL('http://localhost:3000');
 
-    this.load.image('sky', 'assets/skies/space3.png');
-    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-    this.load.image('red', 'assets/particles/red.png');
+    // this.load.image('sky', 'assets/skies/space3.png');
+    // this.load.image('logo', 'assets/sprites/phaser3-logo.png');
+    // this.load.image('red', 'assets/particles/red.png');
+
+    this.load.image('tiles', 'assets/wall/PlatformerWalls/Temple/OutlinedWithMissingBricks/Pink.png');
+    this.load.tilemapCSV('map', 'assets/tilemaps/csv/grid.csv');
 }
 
-function create ()
-{
-    this.add.image(phrWidth / 2, phrHeight / 2, 'sky');
+function create () {
+    let map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
+    let tileset = map.addTilesetImage('tiles', 'wall', 32, 32, 1, 2);
+    let layer = map.createLayer(0, tileset, 0, 0);
 
-    let particles = this.add.particles('red');
+    // this.add.image(phrWidth / 2, phrHeight / 2, 'sky');
 
-    let emitter = particles.createEmitter({
-        speed: 100,
-        scale: { start: 1, end: 0 },
-        blendMode: 'ADD'
-    });
+    // let particles = this.add.particles('red');
 
-    let logo = this.physics.add.image(phrWidth / 2, phrHeight / 6, 'logo');
+    // let emitter = particles.createEmitter({
+    //     speed: 100,
+    //     scale: { start: 1, end: 0 },
+    //     blendMode: 'ADD'
+    // });
 
-    logo.setVelocity(100, 200);
-    logo.setBounce(1, 1);
-    logo.setCollideWorldBounds(true);
+    // let logo = this.physics.add.image(phrWidth / 2, phrHeight / 6, 'logo');
 
-    emitter.startFollow(logo);
+    // logo.setVelocity(100, 200);
+    // logo.setBounce(1, 1);
+    // logo.setCollideWorldBounds(true);
+
+    // emitter.startFollow(logo);
 }
