@@ -36,6 +36,16 @@ app.get(/^\/assets/, (req, res) => {
     });
 });
 
+app.get(/^\/grid/, (req, res) => {
+    fs.readFile(__dirname + req.originalUrl, (err, data) => {
+        res.writeHead(200, {
+            'Content-Type': 'text/csv',
+            'Content-Length': data.length
+        });
+        res.end(data);
+    });
+});
+
 app.listen(port, () => {
     console.log('web view server run on port : ' + port);
 });

@@ -61,7 +61,7 @@ let config = {
     width: phrWidth,
     height: phrHeight,
     pixelArt: true,
-    backgroundColor: '#b7dfed',
+    backgroundColor: '#1a1a2d',
     canvasStyle: `left: ${cnvAdjWidth}px; top: ${cnvAdjHeight}px; position: fixed;`,
     // physics: {
     //     default: 'arcade',
@@ -76,45 +76,6 @@ let config = {
 };
 
 let game = new Phaser.Game(config);
-let parkingLotMap = {
-    key: 'map',
-    type: 'map',
-    infinite: false,
-    orientation:"orthogonal",
-    renderorder:"right-down",
-    width: xGridCnt,
-    height: yGridCnt,
-    tileHeight: 32,
-    tileWidth: 32,
-    layers: [
-        {
-            data: [
-                20, 20, 20, 20, 20, 20, 20,
-                20, 1, 1, 1, 1, 1, 20,
-                20, 1, 1, 1, 1, 1, 20,
-                20, 1, 1, 1, 1, 1, 20,
-                20, 1, 1, 1, 1, 1, 20,
-                20, 1, 1, 1, 1, 1, 20,
-                20, 1, 1, 1, 1, 1, 20,
-                20, 1, 1, 1, 1, 1, 20,
-                20, 1, 1, 1, 1, 1, 20,
-                20, 1, 1, 1, 1, 1, 20,
-                20, 1, 1, 1, 1, 1, 20,
-                20, 20, 20, 20, 20, 20, 20
-            ],
-            id: 3,
-            name: 'level1',
-            height: yGridCnt,
-            width: xGridCnt,
-            opacity: 1,
-            type: 'tilelayer',
-            visible: true,
-            x: 0,
-            y: 0
-        }
-    ]
-};
-let tileset;
 
 function preload () {
     //this.load.setBaseURL('http://localhost:3000');
@@ -123,27 +84,30 @@ function preload () {
     // this.load.image('logo', 'assets/sprites/phaser3-logo.png');
     // this.load.image('red', 'assets/particles/red.png');
 
-    // this.load.image('tiles', 'assets/drawtiles-spaced.png');
-    // this.load.tilemapCSV('map', 'grid/tilemaps/csv/grid.csv');
-
-    this.load.image('tiles', 'assets/gridtiles.png');    
-    //this.load.tilemapCSV('map', 'grid/tilemaps/csv/grid.csv');
-
-
+    this.load.image('tiles', 'assets/drawtiles-spaced.png');
+    this.load.tilemapCSV('map', 'grid/tilemaps/csv/grid.csv');
 }
 
-
-
 function create () {
+    let map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
+    let tileset = map.addTilesetImage('tiles', 'wall', 32, 32, 1, 2);
+    let layer = map.createLayer(0, tileset, 0, 0);
 
-    console.log(spacer);
-    let map = this.make.tilemap(parkingLotMap);
-    tileset = map.addTilesetImage('tiles', 'map', 32, 32, 0, 0);
-    //let layer = map.createLayer(0, tileset, 0, 0);
+    // this.add.image(phrWidth / 2, phrHeight / 2, 'sky');
 
-    let layer = map.createLayer('level1', tileset);
+    // let particles = this.add.particles('red');
 
+    // let emitter = particles.createEmitter({
+    //     speed: 100,
+    //     scale: { start: 1, end: 0 },
+    //     blendMode: 'ADD'
+    // });
 
+    // let logo = this.physics.add.image(phrWidth / 2, phrHeight / 6, 'logo');
 
-   
+    // logo.setVelocity(100, 200);
+    // logo.setBounce(1, 1);
+    // logo.setCollideWorldBounds(true);
+
+    // emitter.startFollow(logo);
 }
