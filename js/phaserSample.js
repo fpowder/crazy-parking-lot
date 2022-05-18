@@ -50,13 +50,20 @@ for(let y = 0; y <= yGridCnt; y++) {
     }
 }
 
+
 let config = {
     type: Phaser.AUTO,
+    parent: 'parking-lot',
     width: phrWidth,
     height: phrHeight,
     pixelArt: true,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     backgroundColor: '#b7dfed',
-    canvasStyle: `left: ${cnvAdjWidth}px; top: ${cnvAdjHeight}px; position: fixed;`,
+    //canvasStyle: `left: ${cnvAdjWidth}px; top: ${cnvAdjHeight}px; position: fixed;`,
+    //canvasStyle: `touch-action: auto;`,
     physics: {
         // default: 'arcade',
         // arcade: {
@@ -73,6 +80,7 @@ let config = {
     //     create: create
     // }
     scene: [ Preloader, Wall, ParkingArea, EntranceExit ]
+    
 };
 
 
