@@ -58,91 +58,64 @@ let config = {
     backgroundColor: '#b7dfed',
     canvasStyle: `left: ${cnvAdjWidth}px; top: ${cnvAdjHeight}px; position: fixed;`,
     physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 0 }
+        // default: 'arcade',
+        // arcade: {
+        //     gravity: { y: 0 }
+        // }
+        default: 'matter',
+        matter: {
+            gravity: { x: 0, y: 0 },
+            debug: true
         }
     },
-    scene: {
-        preload: preload,
-        create: create
-    }
+    // scene: {
+    //     preload: preload,
+    //     create: create
+    // }
+    scene: [ Preloader, Wall, ParkingArea, EntranceExit ]
 };
 
-let game = new Phaser.Game(config);
 
-// let parkingLotMap = {
-//     key: 'map',
-//     type: 'map',
-//     infinite: false,
-//     orientation:"orthogonal",
-//     renderorder:"right-down",
-//     width: xGridCnt,
-//     height: yGridCnt,
-//     tileHeight: 32,
-//     tileWidth: 32,
-//     layers: [
-//         {
-//             data: [
-//                 20, 20, 20, 20, 20, 20, 20,
-//                 20, 1, 1, 1, 1, 1, 20,
-//                 20, 1, 1, 1, 1, 1, 20,
-//                 20, 1, 1, 1, 1, 1, 20,
-//                 20, 1, 1, 1, 1, 1, 20,
-//                 20, 1, 1, 1, 1, 1, 20,
-//                 20, 1, 1, 1, 1, 1, 20,
-//                 20, 1, 1, 1, 1, 1, 20,
-//                 20, 1, 1, 1, 1, 1, 20,
-//                 20, 1, 1, 1, 1, 1, 20,
-//                 20, 1, 1, 1, 1, 1, 20,
-//                 20, 20, 20, 20, 20, 20, 20
-//             ],
-//             id: 3,
-//             name: 'level1',
-//             height: yGridCnt,
-//             width: xGridCnt,
-//             opacity: 1,
-//             type: 'tilelayer',
-//             visible: true,
-//             x: 0,
-//             y: 0
-//         }
-//     ]
-// };
 
-function preload () {
+// function preload () {
 
-    this.load.image('tiles', 'assets/gridtiles.png');    
+//     this.load.image('tiles', 'assets/gridtiles.png');    
 
-}
+// }
 
-function create () {
+// function create () {
 
-    console.log(spacer);
+//     console.log(spacer);
     
-    let wall = this.make.tilemap({
-        data: [
-            [19, 19, 19, 19, 19, 19, 19],
-            [19, 0, 0, 0, 0, 0, 19],
-            [19, 0, 0, 0, 0, 0, 19],
-            [19, 0, 0, 0, 0, 0, 19],
-            [19, 0, 0, 0, 0, 0, 19],
-            [19, 0, 0, 0, 0, 0, 19],
-            [19, 0, 0, 0, 0, 0, 19],
-            [19, 0, 0, 0, 0, 0, 19],
-            [19, 0, 0, 0, 0, 0, 19],
-            [19, 0, 0, 0, 0, 0, 19],
-            [19, 0, 0, 0, 0, 0, 19],
-            [19, 19, 19, 19, 19, 19, 19]
-        ],
-        tileWidth: 32,
-        tileHeight: 32,
-        width: xGridCnt,
-        height: yGridCnt
-    });
+//     let wall = this.make.tilemap({
+//         data: [
+//             [19, 19, 19, 19, 19, 19, 19],
+//             [19, 0, 0, 0, 0, 0, 19],
+//             [19, 0, 0, 0, 0, 0, 19],
+//             [19, 0, 0, 0, 0, 0, 19],
+//             [19, 0, 0, 0, 0, 0, 19],
+//             [19, 0, 0, 0, 0, 0, 19],
+//             [19, 0, 0, 0, 0, 0, 19],
+//             [19, 0, 0, 0, 0, 0, 19],
+//             [19, 0, 0, 0, 0, 0, 19],
+//             [19, 0, 0, 0, 0, 0, 19],
+//             [19, 0, 0, 0, 0, 0, 19],
+//             [19, 19, 19, 19, 19, 19, 19]
+//         ],
+//         tileWidth: 32,
+//         tileHeight: 32,
+//         width: xGridCnt,
+//         height: yGridCnt
+//     });
 
-    let wallTileset = wall.addTilesetImage('tiles',null, 32, 32);
-    let wallLayer = wall.createLayer(0, wallTileset, 0, 0);
-    wallLayer.setScale(spacer / 32);
+//     // wall.layer.name = 'wall';
+
+//     let wallTileset = wall.addTilesetImage('tiles',null, 32, 32);
+//     let wallLayer = wall.createLayer(0, wallTileset, 0, 0);
+    
+//     wallLayer.type = 'wallLayer';
+//     wallLayer.setScale(spacer / 32);
    
-}
+// }
+
+let game = new Phaser.Game(config);
