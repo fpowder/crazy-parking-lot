@@ -30,12 +30,14 @@ class Wall extends Phaser.Scene {
         });
     
         // wall.layer.name = 'wall';
-    
+        
         let wallTileset = wall.addTilesetImage('tiles', null, 32, 32);
         let wallLayer = wall.createLayer(0, wallTileset, 0, 0);
         
         wallLayer.type = 'wallLayer';
         wallLayer.setScale(spacer / 32);
+
+        wall.setCollision([ 19, 33, 47 ]);
 
     }
 
