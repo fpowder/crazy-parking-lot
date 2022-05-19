@@ -1,6 +1,9 @@
 class EntranceExit extends Phaser.Scene {
     constructor() {
-        super('entranceExit');
+        // super('entranceExit');
+        super({
+            key: 'entranceExit'
+        });
     }
 
     preload() {

@@ -50,6 +50,43 @@ for(let y = 0; y <= yGridCnt; y++) {
     }
 }
 
+class RexPinch extends Phaser.Plugins.BasePlugin {
+
+    constructor(pluginManager) {
+        super(pluginManager);
+    }
+
+    preload () {
+        this.load.plugin('rexpinchplugin', 'lib/phaser/rexpinchplugin.min.js', true);
+    }
+    
+    create (camera, scene) {
+        
+        // let camera = this.cameras.main;
+        // let dragScale = this.plugins.get('rexpinchplugin').add(this);
+
+        let dragScale = this.pluginManager.get('RexGesture').pluginManager;
+
+        dragScale
+            .on('drag1', function (dragScale) {
+    
+                console.log(dragScale);
+    
+                let drag1Vector = dragScale.drag1Vector;
+                camera.scrollX -= drag1Vector.x / camera.zoom;
+                camera.scrollY -= drag1Vector.y / camera.zoom;
+            })
+            .on('pinch', function (dragScale) {
+    
+                console.log(dragScale);
+
+                let scaleFactor = dragScale.scaleFactor;
+                camera.zoom *= scaleFactor;
+            }, this);
+
+    }
+
+}
 
 let config = {
     type: Phaser.AUTO,
@@ -57,13 +94,17 @@ let config = {
     width: phrWidth,
     height: phrHeight,
     pixelArt: true,
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH
-    },
+    // scale: {
+    //     mode: Phaser.Scale.FIT,
+    //     autoCenter: Phaser.Scale.CENTER_BOTH
+    // },
     backgroundColor: '#b7dfed',
-    //canvasStyle: `left: ${cnvAdjWidth}px; top: ${cnvAdjHeight}px; position: fixed;`,
-    //canvasStyle: `touch-action: auto;`,
+    canvasStyle: `left: ${cnvAdjWidth}px; top: ${cnvAdjHeight}px; position: absolute;`,
+    plugins: {
+        global: [
+            { key: 'RexPinch', plugin: RexPinch, start: true, mapping: 'RexPinch' }
+        ]
+    },
     physics: {
         // default: 'arcade',
         // arcade: {
@@ -80,50 +121,5 @@ let config = {
     //     create: create
     // }
     scene: [ Preloader, Wall, ParkingArea, EntranceExit ]
-    
 };
-
-
-
-// function preload () {
-
-//     this.load.image('tiles', 'assets/gridtiles.png');    
-
-// }
-
-// function create () {
-
-//     console.log(spacer);
-    
-//     let wall = this.make.tilemap({
-//         data: [
-//             [19, 19, 19, 19, 19, 19, 19],
-//             [19, 0, 0, 0, 0, 0, 19],
-//             [19, 0, 0, 0, 0, 0, 19],
-//             [19, 0, 0, 0, 0, 0, 19],
-//             [19, 0, 0, 0, 0, 0, 19],
-//             [19, 0, 0, 0, 0, 0, 19],
-//             [19, 0, 0, 0, 0, 0, 19],
-//             [19, 0, 0, 0, 0, 0, 19],
-//             [19, 0, 0, 0, 0, 0, 19],
-//             [19, 0, 0, 0, 0, 0, 19],
-//             [19, 0, 0, 0, 0, 0, 19],
-//             [19, 19, 19, 19, 19, 19, 19]
-//         ],
-//         tileWidth: 32,
-//         tileHeight: 32,
-//         width: xGridCnt,
-//         height: yGridCnt
-//     });
-
-//     // wall.layer.name = 'wall';
-
-//     let wallTileset = wall.addTilesetImage('tiles',null, 32, 32);
-//     let wallLayer = wall.createLayer(0, wallTileset, 0, 0);
-    
-//     wallLayer.type = 'wallLayer';
-//     wallLayer.setScale(spacer / 32);
-   
-// }
-
 let game = new Phaser.Game(config);

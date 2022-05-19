@@ -1,6 +1,9 @@
 class Wall extends Phaser.Scene {
     constructor() {
-        super('wall');
+        //super('wall');
+        super({
+            key: 'wall'
+        })
     }
 
     preload() {
@@ -31,7 +34,7 @@ class Wall extends Phaser.Scene {
     
         // wall.layer.name = 'wall';
         
-        let wallTileset = wall.addTilesetImage('tiles', null, 32, 32);
+        let wallTileset = wall.addTilesetImage('tiles', null, 32, 32 );
         let wallLayer = wall.createLayer(0, wallTileset, 0, 0);
         
         wallLayer.type = 'wallLayer';

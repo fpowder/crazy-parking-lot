@@ -1,6 +1,9 @@
 class ParkingArea extends Phaser.Scene {
     constructor() {
-        super('parkingArea');
+        // super('parkingArea');
+        super({
+            key: 'parkingArea'
+        });
     }
 
     preload() {
